@@ -30,14 +30,14 @@ gleam add ask
 import ask/equivalence
 
 // Defining custom equivalences
-let eq1 = fn(x, y) -> Bool { x == y }
-let eq2 = fn(x, y) -> Bool { x % 2 == y % 2 }
+let eq1 = fn(x, y) { x % 3 == y % 3 }
+let eq2 = fn(x, y) { x % 5 == y % 5 }
 
 // Combining equivalences using logical operations
 let combined_eq = equivalence.and(eq1, eq2)
 
 // Using equivalence to compare values
-let result = combined_eq(4, 8) // Returns True
+let result = combined_eq(15, 30) // Returns True
 ```
 
 Equivalences are expected to follow these friendly rules:
@@ -59,14 +59,15 @@ they play nice with each other.
 import ask/predicate
 
 // Defining custom predicates
-let is_positive = fn(x) -> Bool { x > 0 }
-let is_even = fn(x) -> Bool { x % 2 == 0 }
+let is_positive = fn(x) { x > 0 }
+let is_even = fn(x) { x % 2 == 0 }
 
 // Combining predicates using logical operations
 let combined_pred = predicate.and(is_positive, is_even)
 
 // Using predicate to evaluate values
 let result = combined_pred(6) // Returns True
+let result = combined_pred(-6) // Returns False
 ```
 
 ## Conclusion
