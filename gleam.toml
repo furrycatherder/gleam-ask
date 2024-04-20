@@ -2,7 +2,7 @@ name = "ask"
 version = "0.1.0"
 
 description = "Utilities for composing predicates and equivalence relations"
-licences = ["Apache-2.0"]
+licences = ["MIT"]
 repository = { type = "github", user = "furrycatherder", repo = "gleam-ask" }
 
 [dependencies]
