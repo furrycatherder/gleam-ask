@@ -84,6 +84,29 @@ pub fn pair(
 
 /// Map the input of an equivalence to create a new equivalence.
 ///
+/// ## Examples
+///
+/// This can be useful for constructing a custom equivalence of a record, given
+/// that we have an equivalence for one or more of its fields.
+///
+/// ```gleam
+/// import ask/equivalence as eq
+///
+/// type User {
+///   User(name: String, age: Int)
+/// }
+///
+/// pub fn main() {
+///   let user1 = User("alice", 30)
+///   let user2 = User("alice", 24)
+///   let is_username_equal =
+///     eq.default()
+///     |> eq.map_input(fn(user: User) { user.name })
+///
+///   is_username_equal(user1, user2) // -> True
+/// }
+/// ```
+///
 pub fn map_input(
   over eq: Equivalence(a),
   with fun: fn(b) -> a,
