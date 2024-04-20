@@ -35,13 +35,24 @@ pub fn not(p: Predicate(a)) -> Predicate(a) {
   fn(value: a) -> Bool { !p(value) }
 }
 
+fn do_every(ps: List(Predicate(a)), value: a, acc: Bool) -> Bool {
+  case ps {
+    [] -> acc
+    [p, ..ps] -> do_every(ps, value, acc && p(value))
+  }
+}
+
 /// Combine a list of predicates together into a new predicate that returns `True`
 /// if all predicates return `True`.
 ///
 pub fn every(ps: List(Predicate(a))) -> Predicate(a) {
+  fn(value: a) -> Bool { do_every(ps, value, True) }
+}
+
+fn do_some(ps: List(Predicate(a)), value: a, acc: Bool) -> Bool {
   case ps {
-    [] -> fn(_) -> Bool { True }
-    [p, ..ps] -> fn(value: a) -> Bool { p(value) && every(ps)(value) }
+    [] -> acc
+    [p, ..ps] -> do_some(ps, value, acc || p(value))
   }
 }
 
@@ -49,10 +60,7 @@ pub fn every(ps: List(Predicate(a))) -> Predicate(a) {
 /// if any predicate returns `True`.
 ///
 pub fn some(ps: List(Predicate(a))) -> Predicate(a) {
-  case ps {
-    [] -> fn(_) -> Bool { False }
-    [p, ..ps] -> fn(value: a) -> Bool { p(value) || some(ps)(value) }
-  }
+  fn(value: a) -> Bool { do_some(ps, value, False) }
 }
 
 /// Create a new predicate that returns `True` if it returns `True` for every

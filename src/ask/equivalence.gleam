@@ -1,3 +1,6 @@
+import gleam/bool
+import gleam/list
+
 pub type Equivalence(a) =
   fn(a, a) -> Bool
 
@@ -30,17 +33,31 @@ pub fn not(eq: Equivalence(a)) -> Equivalence(a) {
   fn(value: a, other: a) -> Bool { !eq(value, other) }
 }
 
+fn do_list(
+  eq: Equivalence(a),
+  values: List(a),
+  others: List(a),
+  acc: Bool,
+) -> Bool {
+  case values, others {
+    [], [] -> acc
+    [value, ..values], [other, ..others] -> {
+      do_list(eq, values, others, acc && eq(value, other))
+    }
+    _, _ -> False
+  }
+}
+
 /// Create a new equivalence for a list of values based on the given equivalence.
 ///
 pub fn list(eq: Equivalence(a)) -> Equivalence(List(a)) {
   fn(values: List(a), others: List(a)) -> Bool {
-    case values, others {
-      [], [] -> True
-      [value, ..values], [other, ..others] -> {
-        eq(value, other) && list(eq)(values, others)
-      }
-      _, _ -> False
-    }
+    use <- bool.guard(
+      when: list.length(values) != list.length(others),
+      return: False,
+    )
+
+    do_list(eq, values, others, True)
   }
 }
 
