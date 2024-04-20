@@ -12,6 +12,12 @@ pub fn trivial() -> Equivalence(a) {
   fn(_, _) -> Bool { True }
 }
 
+/// Create a new equivalence that uses the default equality comparison.
+///
+pub fn default() -> Equivalence(a) {
+  fn(value: a, other: a) -> Bool { value == other }
+}
+
 /// Combine two equivalences into a new equivalence that returns `True` if both
 /// equivalences return `True`.
 ///
