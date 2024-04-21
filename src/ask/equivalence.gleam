@@ -113,3 +113,37 @@ pub fn map_input(
 ) -> Equivalence(b) {
   fn(value: b, other: b) -> Bool { eq(fun(value), fun(other)) }
 }
+
+fn do_contains(eq: Equivalence(a), list: List(a), elem: a, acc: Bool) {
+  case list {
+    [] -> acc
+    [x, ..xs] -> do_contains(eq, xs, elem, acc || eq(x, elem))
+  }
+}
+
+/// Test if a value is a member of a list according to the given equivalence.
+///
+pub fn contains(eq: Equivalence(a)) {
+  fn(list: List(a), elem: a) { do_contains(eq, list, elem, False) }
+}
+
+fn do_unique(eq: Equivalence(a), list: List(a), acc: List(a)) {
+  case list {
+    [] -> list.reverse(acc)
+    [x, ..xs] ->
+      do_unique(
+        eq,
+        xs,
+        bool.guard(when: contains(eq)(acc, x), return: acc, otherwise: fn() {
+          [x, ..acc]
+        }),
+      )
+  }
+}
+
+/// Remove duplicates from a list, keeping the first occurrence of each element
+/// according to the given equivalence.
+///
+pub fn unique(eq: Equivalence(a)) {
+  fn(list: List(a)) { do_unique(eq, list, []) }
+}
