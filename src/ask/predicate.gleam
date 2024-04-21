@@ -31,7 +31,7 @@ pub fn or(first: Predicate(a), second: Predicate(a)) -> Predicate(a) {
 
 /// Negate a predicate.
 ///
-pub fn not(p: Predicate(a)) -> Predicate(a) {
+pub fn negate(p: Predicate(a)) -> Predicate(a) {
   fn(value: a) -> Bool { !p(value) }
 }
 

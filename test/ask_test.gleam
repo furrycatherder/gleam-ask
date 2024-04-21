@@ -41,10 +41,10 @@ pub fn predicate_or_test() {
 }
 
 pub fn predicate_not_test() {
-  predicate.not(always())(a)
+  predicate.negate(always())(a)
   |> should.equal(False)
 
-  predicate.not(never())(a)
+  predicate.negate(never())(a)
   |> should.equal(True)
 }
 
@@ -188,7 +188,7 @@ pub fn eq_or_test() {
 
 pub fn eq_not_test() {
   let eq = fn(a, b) { a == b }
-  let not_eq = equivalence.not(eq)
+  let not_eq = equivalence.negate(eq)
 
   not_eq(1, 1)
   |> should.equal(False)

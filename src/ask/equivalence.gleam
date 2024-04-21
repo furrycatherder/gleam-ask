@@ -35,7 +35,7 @@ pub fn or(first: Equivalence(a), second: Equivalence(a)) -> Equivalence(a) {
 /// Negate an equivalence to create a new equivalence that returns `True` if the
 /// original equivalence returns `False`.
 ///
-pub fn not(eq: Equivalence(a)) -> Equivalence(a) {
+pub fn negate(eq: Equivalence(a)) -> Equivalence(a) {
   fn(value: a, other: a) -> Bool { !eq(value, other) }
 }
 
