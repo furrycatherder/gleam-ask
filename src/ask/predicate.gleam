@@ -63,8 +63,8 @@ pub fn some(ps: List(Predicate(a))) -> Predicate(a) {
   fn(value: a) -> Bool { do_some(ps, value, False) }
 }
 
-/// Create a new predicate that returns `True` if it returns `True` for every
-/// element in a list.
+/// Create a new predicate that returns `True` if the given predicate returns
+/// `True` for every element in a list.
 ///
 pub fn all(p: Predicate(a)) -> Predicate(List(a)) {
   fn(a: List(a)) -> Bool {
@@ -73,8 +73,8 @@ pub fn all(p: Predicate(a)) -> Predicate(List(a)) {
   }
 }
 
-/// Create a new predicate that returns `True` if it returns `True` for any
-/// element in a list.
+/// Create a new predicate that returns `True` if the given predicate returns
+/// `True` for any element in a list.
 ///
 pub fn any(p: Predicate(a)) -> Predicate(List(a)) {
   fn(a: List(a)) -> Bool {
