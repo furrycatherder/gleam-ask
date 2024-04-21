@@ -238,3 +238,43 @@ pub fn eq_map_input_test() {
   map_eq(1, 2)
   |> should.equal(False)
 }
+
+pub fn eq_contains_test() {
+  let eq = fn(a, b) { a % 2 == b % 2 }
+  let contains_eq = equivalence.contains(eq)
+
+  contains_eq([2, 2, 2], 2)
+  |> should.equal(True)
+
+  contains_eq([2, 2, 2], 3)
+  |> should.equal(False)
+
+  contains_eq([2, 2, 2], 4)
+  |> should.equal(True)
+
+  contains_eq([1, 3, 5], 1)
+  |> should.equal(True)
+
+  contains_eq([1, 3, 5], 2)
+  |> should.equal(False)
+
+  contains_eq([1, 3, 5], 3)
+  |> should.equal(True)
+}
+
+pub fn eq_unique_test() {
+  let eq = fn(a, b) { a % 2 == b % 2 }
+  let unique_eq = equivalence.unique(eq)
+
+  unique_eq([1, 2, 3])
+  |> should.equal([1, 2])
+
+  unique_eq([1, 1, 1])
+  |> should.equal([1])
+
+  unique_eq([1, 3, 5])
+  |> should.equal([1])
+
+  unique_eq([2, 4, 6])
+  |> should.equal([2])
+}
