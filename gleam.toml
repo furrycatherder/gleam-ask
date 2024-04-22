@@ -1,7 +1,7 @@
 name = "ask"
 version = "0.1.1"
 
-description = "Utilities for composing predicates and equivalence relations"
+description = "Functional utilities for building custom predicates, orderings, and equivalences"
 licences = ["MIT"]
 repository = { type = "github", user = "furrycatherder", repo = "gleam-ask" }
 

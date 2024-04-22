@@ -4,17 +4,20 @@
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/ask/)
 ![CI](https://github.com/furrycatherder/gleam-ask/actions/workflows/tests.yml/badge.svg?branch=main)
 
-`ask` is a Gleam library tailored for simplifying the management of equivalences
-and predicates. Equivalences allow for the comparison of two values to
-determine if they're equivalent, while predicates assess if a given value meets
-specific conditions.
+`ask` is a Gleam library tailored for simplifying the management of
+equivalences, orderings, and predicates. Equivalences allow for the comparison
+of two values to determine if they're equivalent, while orderings provide a
+systematic way to compare values in terms of their relative magnitudes or
+positions. Predicates, on the other hand, assess if a given value meets
+specific conditions, offering a flexible mechanism for expressing logical
+constraints or requirements.
 
 ## Overview
 
 `ask` provides developers with a set of functions to create, combine, and
-transform equivalences and predicates. Whether you're performing basic value
-comparisons or intricate logical operations, `ask` furnishes the necessary tools
-to handle a variety of scenarios effectively.
+transform equivalences, orderings, and predicates. Whether you're performing
+basic value comparisons or intricate logical operations, `ask` furnishes the
+necessary tools to handle a variety of scenarios effectively.
 
 ## Installation
 
@@ -100,10 +103,10 @@ let result = combined_pred(-6) // Returns False
 
 ## Conclusion
 
-`ask` equips Gleam developers with a robust toolkit for managing equivalences and
-predicates efficiently. Whether you're implementing algorithms, data validation
-systems, or decision-making processes, `ask` facilitates streamlined code
-development, allowing you to focus on problem-solving.
+`ask` equips Gleam developers with a robust toolkit for managing equivalences,
+orderings, and predicates efficiently. Whether you're implementing algorithms,
+data validation systems, or decision-making processes, `ask` facilitates
+streamlined code development, allowing you to focus on problem-solving.
 
 Further documentation can be found at <https://hexdocs.pm/ask>.
 
