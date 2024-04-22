@@ -1,5 +1,5 @@
 name = "ask"
-version = "0.1.1"
+version = "0.2.0"
 
 description = "Functional utilities for building custom predicates, orderings, and equivalences"
 licences = ["MIT"]
