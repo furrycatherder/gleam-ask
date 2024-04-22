@@ -53,6 +53,34 @@ Equivalences are expected to follow these friendly rules:
 These rules help keep our equivalences reliable and predictable, making sure
 they play nice with each other.
 
+### Orderings
+
+```gleam
+import ask/ord
+import gleam/int
+import gleam/list
+import gleam/string
+
+type User {
+  User(name: String, age: Int)
+}
+
+let compare_name = ord.map_input(string.compare, fn(user: User) { user.name })
+let compare_age = ord.map_input(int.compare, fn(user: User) { user.age })
+
+// Sort by name, then by age
+let compare_user = ord.combine(compare_name, compare_age)
+let result =
+  list.sort(
+    [
+      User(name: "alice", age: 32),
+      User(name: "bob", age: 45),
+      User(name: "alice", age: 24),
+    ],
+    by: compare_user,
+  )
+```
+
 ### Predicates
 
 ```gleam
