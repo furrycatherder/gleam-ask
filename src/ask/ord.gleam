@@ -54,3 +54,9 @@ pub fn pair(first: Ord(a), second: Ord(b)) -> Ord(#(a, b)) {
     |> order.lazy_break_tie(with: fn() { second(value.1, other.1) })
   }
 }
+
+/// Map the input of an ordering to create a new ordering.
+///
+pub fn map_input(over ord: Ord(b), with fun: fn(a) -> b) -> Ord(a) {
+  fn(value: a, other: a) { ord(fun(value), fun(other)) }
+}
