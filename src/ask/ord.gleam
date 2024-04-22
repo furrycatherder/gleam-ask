@@ -16,12 +16,6 @@ pub fn get_equivalence(ord: Ord(a)) {
   fn(value: a, other: a) { value == other || ord(value, other) == order.Eq }
 }
 
-/// Reverse the order of an ordering.
-///
-pub fn reverse(ord: Ord(a)) -> Ord(a) {
-  fn(value: a, other: a) { ord(other, value) }
-}
-
 /// Combine two orderings into a new ordering, which will order by the first,
 /// then by the second in case of a tie.
 ///
