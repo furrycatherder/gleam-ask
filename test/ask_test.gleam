@@ -1,4 +1,4 @@
-import ask/equivalence
+import ask/eq
 import ask/ord
 import ask/predicate.{always, never}
 import gleam/int
@@ -146,17 +146,17 @@ pub fn predicate_map_input_test() {
 }
 
 pub fn eq_trivial_test() {
-  equivalence.trivial()(1, 1)
+  eq.trivial()(1, 1)
   |> should.equal(True)
 
-  equivalence.trivial()(1, 2)
+  eq.trivial()(1, 2)
   |> should.equal(True)
 }
 
 pub fn eq_and_test() {
   let eq1 = fn(a, b) { a == b }
   let eq2 = fn(a, b) { a % 2 == b % 2 }
-  let and_eq = equivalence.and(eq1, eq2)
+  let and_eq = eq.and(eq1, eq2)
 
   and_eq(2, 2)
   |> should.equal(True)
@@ -171,7 +171,7 @@ pub fn eq_and_test() {
 pub fn eq_or_test() {
   let eq1 = fn(a, b) { a == b }
   let eq2 = fn(a, b) { a % 2 == b % 2 }
-  let or_eq = equivalence.or(eq1, eq2)
+  let or_eq = eq.or(eq1, eq2)
 
   or_eq(2, 2)
   |> should.equal(True)
@@ -191,7 +191,7 @@ pub fn eq_or_test() {
 
 pub fn eq_not_test() {
   let eq = fn(a, b) { a == b }
-  let not_eq = equivalence.negate(eq)
+  let not_eq = eq.negate(eq)
 
   not_eq(1, 1)
   |> should.equal(False)
@@ -202,7 +202,7 @@ pub fn eq_not_test() {
 
 pub fn eq_list_test() {
   let eq = fn(a, b) { a == b }
-  let all_eq = equivalence.list(eq)
+  let all_eq = eq.list(eq)
 
   all_eq([1, 1, 1], [1, 1, 1])
   |> should.equal(True)
@@ -216,7 +216,7 @@ pub fn eq_list_test() {
 
 pub fn eq_pair_test() {
   let eq = fn(a, b) { a == b }
-  let pair_eq = equivalence.pair(eq, eq)
+  let pair_eq = eq.pair(eq, eq)
 
   pair_eq(#(1, 1), #(1, 1))
   |> should.equal(True)
@@ -227,7 +227,7 @@ pub fn eq_pair_test() {
 
 pub fn eq_map_input_test() {
   let eq = fn(a, b) { a == b }
-  let map_eq = equivalence.map_input(eq, fn(x) { x % 2 })
+  let map_eq = eq.map_input(eq, fn(x) { x % 2 })
 
   map_eq(1, 1)
   |> should.equal(True)
@@ -244,7 +244,7 @@ pub fn eq_map_input_test() {
 
 pub fn eq_contains_test() {
   let eq = fn(a, b) { a % 2 == b % 2 }
-  let contains_eq = equivalence.contains(eq)
+  let contains_eq = eq.contains(eq)
 
   contains_eq([2, 2, 2], 2)
   |> should.equal(True)
@@ -267,7 +267,7 @@ pub fn eq_contains_test() {
 
 pub fn eq_unique_test() {
   let eq = fn(a, b) { a % 2 == b % 2 }
-  let unique_eq = equivalence.unique(eq)
+  let unique_eq = eq.unique(eq)
 
   unique_eq([1, 2, 3])
   |> should.equal([1, 2])

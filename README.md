@@ -27,14 +27,14 @@ gleam add ask
 ### Equivalences
 
 ```gleam
-import ask/equivalence
+import ask/eq
 
 // Defining custom equivalences
 let eq1 = fn(x, y) { x % 3 == y % 3 }
 let eq2 = fn(x, y) { x % 5 == y % 5 }
 
 // Combining equivalences using logical operations
-let combined_eq = equivalence.and(eq1, eq2)
+let combined_eq = eq.and(eq1, eq2)
 
 // Using equivalence to compare values
 let result = combined_eq(15, 30) // Returns True
