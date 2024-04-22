@@ -28,9 +28,11 @@ pub fn combine(first: Ord(a), second: Ord(a)) {
 
 /// Test whether a value is between two others, according to a given ordering.
 ///
+/// The provided interval is half-open, `[lower, upper)`, i.e. greater than or
+/// equal to lower and less than upper.
 pub fn between(ord: Ord(a), lower: a, upper: a) {
   fn(value: a) {
-    ord(lower, value) == order.Lt && ord(value, upper) == order.Lt
+    ord(lower, value) != order.Gt && ord(value, upper) == order.Lt
   }
 }
 
