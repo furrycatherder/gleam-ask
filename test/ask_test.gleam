@@ -1,6 +1,9 @@
 import ask/equivalence
+import ask/ord
 import ask/predicate.{always, never}
 import gleam/int
+import gleam/list
+import gleam/order
 import gleam/string
 import gleeunit
 import gleeunit/should
@@ -277,4 +280,67 @@ pub fn eq_unique_test() {
 
   unique_eq([2, 4, 6])
   |> should.equal([2])
+}
+
+pub fn ord_trivial_test() {
+  let ord = ord.trivial()
+
+  list.sort([1, 2, 3], ord)
+  |> should.equal([1, 2, 3])
+
+  list.sort([3, 2, 1], ord)
+  |> should.equal([3, 2, 1])
+}
+
+pub fn ord_combine_test() {
+  let ord1 = fn(a, b) { int.compare(a % 2, b % 2) }
+  let ord2 = fn(a, b) { int.compare(b, a) }
+
+  list.sort([1, 2, 3, 4, 5, 6], ord.combine(ord1, ord2))
+  |> should.equal([6, 4, 2, 5, 3, 1])
+}
+
+pub fn ord_between_test() {
+  let is_digit = ord.between(int.compare, 0, 10)
+
+  is_digit(0)
+  |> should.equal(True)
+
+  is_digit(5)
+  |> should.equal(True)
+
+  is_digit(10)
+  |> should.equal(False)
+}
+
+pub fn ord_clamp_test() {
+  let clamp = ord.clamp(int.compare, 0, 10)
+
+  clamp(0)
+  |> should.equal(0)
+
+  clamp(5)
+  |> should.equal(5)
+
+  clamp(10)
+  |> should.equal(10)
+
+  clamp(-1)
+  |> should.equal(0)
+
+  clamp(11)
+  |> should.equal(10)
+}
+
+pub fn ord_pair_test() {
+  let pair_ord = ord.pair(int.compare, int.compare)
+
+  pair_ord(#(1, 1), #(1, 1))
+  |> should.equal(order.Eq)
+
+  pair_ord(#(1, 1), #(1, 2))
+  |> should.equal(order.Lt)
+
+  pair_ord(#(1, 2), #(1, 1))
+  |> should.equal(order.Gt)
 }
