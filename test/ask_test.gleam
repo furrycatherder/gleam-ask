@@ -344,3 +344,19 @@ pub fn ord_pair_test() {
   pair_ord(#(1, 2), #(1, 1))
   |> should.equal(order.Gt)
 }
+
+pub fn ord_map_input_test() {
+  let ord = ord.map_input(int.compare, fn(x) { x % 2 })
+
+  ord(1, 1)
+  |> should.equal(order.Eq)
+
+  ord(2, 4)
+  |> should.equal(order.Eq)
+
+  ord(3, 5)
+  |> should.equal(order.Eq)
+
+  ord(1, 2)
+  |> should.equal(order.Gt)
+}
