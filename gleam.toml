@@ -5,6 +5,9 @@ description = "Functional utilities for building custom predicates, orderings, a
 licences = ["MIT"]
 repository = { type = "github", user = "furrycatherder", repo = "gleam-ask" }
 
+[javascript]
+typescript_declarations = true
+
 [dependencies]
 gleam_stdlib = ">= 0.34.0 and < 2.0.0"
 
