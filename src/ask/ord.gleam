@@ -1,4 +1,5 @@
 import gleam/bool
+import gleam/option
 import gleam/order
 
 pub type Ord(a) =
@@ -59,4 +60,18 @@ pub fn pair(first: Ord(a), second: Ord(b)) -> Ord(#(a, b)) {
 ///
 pub fn map_input(over ord: Ord(b), with fun: fn(a) -> b) -> Ord(a) {
   fn(value: a, other: a) { ord(fun(value), fun(other)) }
+}
+
+/// Create a new order that sorts optional values based on the given ordering.
+///
+/// A `None` value is always considered less than a `Some` value.
+pub fn optional(ord: Ord(a)) {
+  fn(value: option.Option(a), other: option.Option(a)) {
+    case value, other {
+      option.Some(value), option.Some(other) -> ord(value, other)
+      option.Some(_), option.None -> order.Gt
+      option.None, option.Some(_) -> order.Lt
+      option.None, option.None -> order.Eq
+    }
+  }
 }

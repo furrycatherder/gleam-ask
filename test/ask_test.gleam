@@ -3,6 +3,7 @@ import ask/ord
 import ask/predicate.{always, never}
 import gleam/int
 import gleam/list
+import gleam/option.{None, Some}
 import gleam/order
 import gleam/string
 import gleeunit
@@ -358,5 +359,27 @@ pub fn ord_map_input_test() {
   |> should.equal(order.Eq)
 
   ord(1, 2)
+  |> should.equal(order.Gt)
+}
+
+pub fn ord_optional_test() {
+  let compare = ord.optional(int.compare)
+
+  compare(None, None)
+  |> should.equal(order.Eq)
+
+  compare(None, Some(1))
+  |> should.equal(order.Lt)
+
+  compare(Some(1), None)
+  |> should.equal(order.Gt)
+
+  compare(Some(1), Some(1))
+  |> should.equal(order.Eq)
+
+  compare(Some(1), Some(2))
+  |> should.equal(order.Lt)
+
+  compare(Some(2), Some(1))
   |> should.equal(order.Gt)
 }
