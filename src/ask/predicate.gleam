@@ -1,4 +1,6 @@
+import gleam/bool
 import gleam/list
+import gleam/option
 
 pub type Predicate(a) =
   fn(a) -> Bool
@@ -81,4 +83,13 @@ pub fn any(p: Predicate(a)) -> Predicate(List(a)) {
 ///
 pub fn map_input(over p: Predicate(a), with fun: fn(b) -> a) -> Predicate(b) {
   fn(b: b) -> Bool { p(fun(b)) }
+}
+
+/// Create a function that returns an optional value based on a predicate.
+///
+pub fn lift(p: Predicate(a)) -> fn(a) -> option.Option(a) {
+  fn(value: a) -> option.Option(a) {
+    use <- bool.guard(when: !p(value), return: option.None)
+    option.Some(value)
+  }
 }
